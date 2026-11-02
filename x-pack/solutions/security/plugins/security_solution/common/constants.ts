@@ -291,6 +291,9 @@ export const ENABLE_CLOUD_CONNECTOR_SETTING = 'securitySolution:enableCloudConne
 /** This Kibana Advanced Setting allows users to enable/disable the new EUI-based flyout system */
 export const ENABLE_NEW_FLYOUT_SETTING = 'securitySolution:enableNewFlyout' as const;
 
+export const DEFEND_CONFIGURATION_TROUBLESHOOTING_UNIVERSAL_SKILL_SETTING =
+  'securitySolution:defendConfigurationTroubleshootingUniversalSkill' as const;
+
 /** This Kibana Advanced Setting allows users to enable/disable the rule changes history feature */
 export const ENABLE_RULE_CHANGES_HISTORY_SETTING =
   'securitySolution:enableRuleChangesHistory' as const;
