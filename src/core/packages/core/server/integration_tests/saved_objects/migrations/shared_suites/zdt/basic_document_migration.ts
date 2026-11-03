@@ -10,6 +10,7 @@
 import fs from 'fs/promises';
 import { range, sortBy } from 'lodash';
 import type { SavedObjectsBulkCreateObject } from '@kbn/core-saved-objects-api-server';
+import type { MigrationAlgorithm } from '@kbn/core-saved-objects-base-server-internal';
 import '../../jest_matchers';
 import { getKibanaMigratorTestKit } from '@kbn/migrator-test-kit';
 import { parseLogFile } from '../../test_utils';
@@ -23,9 +24,11 @@ import {
 export function createBasicDocumentsMigrationTest({
   startES,
   logFilePath,
+  migrationAlgorithm = 'zdt',
 }: {
   startES: EsRunner;
   logFilePath: string;
+  migrationAlgorithm?: MigrationAlgorithm;
 }) {
   let esServer: EsServer;
 
@@ -40,7 +43,7 @@ export function createBasicDocumentsMigrationTest({
 
   const createBaseline = async () => {
     const { runMigrations, savedObjectsRepository } = await getKibanaMigratorTestKit({
-      ...getBaseMigratorParams(),
+      ...getBaseMigratorParams({ migrationAlgorithm }),
       types: [getSampleAType(), getSampleBType()],
     });
     await runMigrations();
@@ -140,7 +143,7 @@ export function createBasicDocumentsMigrationTest({
     };
 
     const { runMigrations, client, savedObjectsRepository } = await getKibanaMigratorTestKit({
-      ...getBaseMigratorParams(),
+      ...getBaseMigratorParams({ migrationAlgorithm }),
       logFilePath,
       types: [typeA, typeB],
     });
