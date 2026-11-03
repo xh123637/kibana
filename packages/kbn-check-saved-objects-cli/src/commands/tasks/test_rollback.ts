@@ -13,6 +13,7 @@ import { encryptionOverrides, type Task, type TaskContext } from '../types';
 import { getPreviousVersionType } from '../../migrations';
 import { checkDocuments } from './check_documents';
 import { getRollbackMigrationContext } from './rollback_context';
+import { getMigratorOptions } from '../algorithms';
 
 export const testRollback: Task = async (ctx, task) => {
   const { migrationTypes, migrationKibanaIndex, migrationAlgorithm } =
@@ -27,7 +28,7 @@ export const testRollback: Task = async (ctx, task) => {
     {
       types: previousVersionTypes,
       kibanaIndex: migrationKibanaIndex,
-      settings: { migrations: { algorithm: migrationAlgorithm } },
+      ...getMigratorOptions(migrationAlgorithm),
       encryptionExtensionFactory: ctx.encryptedSavedObjects
         ? (typeRegistry) =>
             ctx.encryptedSavedObjects!.__testCreateDangerousExtension(
