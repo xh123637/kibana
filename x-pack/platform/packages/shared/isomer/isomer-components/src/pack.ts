@@ -19,10 +19,12 @@ import {
   quote,
   section,
   table,
+  unsupported,
 } from './primitives';
 import { codeCopyEnhancement } from './primitives/code';
 import { tableSortEnhancement } from './primitives/table';
 
+/** Primitive definitions registered by `componentsPack`. */
 export const componentsPrimitives = [
   markdown,
   header,
@@ -35,6 +37,7 @@ export const componentsPrimitives = [
   fields,
   code,
   table,
+  unsupported,
 ] as const;
 
 /** Kibana's content and layout primitives. */
@@ -52,6 +55,7 @@ export const componentsPack = definePrimitivePack({
         types: ['header', 'section', 'context', 'divider', 'quote', 'actions', 'link'],
       },
       { title: 'Data', types: ['fields', 'code', 'table'] },
+      { title: 'Status', types: ['unsupported'] },
     ],
   },
 });
